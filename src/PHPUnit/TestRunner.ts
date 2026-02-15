@@ -38,6 +38,7 @@ export class TestRunner {
         process.on('start', (builder: ProcessBuilder) => this.emit(TestRunnerEvent.run, builder));
         process.on('line', (line: string) => this.processLine(line, builder));
         process.on('error', (err: Error) => this.handleProcessError(err));
+        process.on('abort', () => this.emit(TestRunnerEvent.abort, undefined));
         process.on('close', (code: number | null, output: string) =>
             this.handleProcessClose(code, output),
         );
